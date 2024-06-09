@@ -1,0 +1,22 @@
+{
+    "name": "entroped/szamlazz-hu-szamla-agent",
+    "description": "Ths is the clone of SzamlaAgent PHP API in Composer to seamless integration with PHP frameworks",
+    "type": "library",
+    "keywords": ["szamlazz", "szamlazz.hu", "invoice", "invoice agent", "szamla agent"],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SzamlaAgentAPI\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Attila Reterics",
+            "email": "attila@reterics.com"
+        }
+    ],
+    "require": {
+        "php": ">=7"
+    },
+    "minimum-stability": "dev"
+}
