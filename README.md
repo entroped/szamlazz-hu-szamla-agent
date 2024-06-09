@@ -32,7 +32,7 @@ composer require entroped/szamlazz-hu-szamla-agent
 Use your own API key received from szamlazz.hu to use the ageng
 ```php
 
-use Entroped\SzamlazzHuSzamlaAgent;
+use SzamlaAgentAPI;
 
 
 $agent = SzamlaAgentAPI::create('YOUR_API_KEY');
