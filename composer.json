@@ -12,11 +12,11 @@
     "authors": [
         {
             "name": "Attila Reterics",
-            "email": "attila@reterics.com"
+            "email": "info@entroped.com"
         }
     ],
     "require": {
         "php": ">=7"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
