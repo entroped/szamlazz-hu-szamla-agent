@@ -1,6 +1,6 @@
 {
     "name": "entroped/szamlazz-hu-szamla-agent",
-    "description": "Ths is the clone of SzamlaAgent PHP API in Composer to seamless integration with PHP frameworks",
+    "description": "This is the clone of SzamlaAgent PHP API in Composer to seamless integration with PHP frameworks",
     "type": "library",
     "keywords": ["szamlazz", "szamlazz.hu", "invoice", "invoice agent", "szamla agent"],
     "license": "MIT",
