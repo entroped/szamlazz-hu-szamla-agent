@@ -26,7 +26,7 @@ class SzamlaAgent {
     /**
      * Számla Agent API aktuális verzió
      */
-    const API_VERSION = '2.10.18';
+    const API_VERSION = '2.10.21';
 
     /**
      * Számla Agent API url
@@ -100,6 +100,13 @@ class SzamlaAgent {
     private $requestTimeout = SzamlaAgentRequest::REQUEST_TIMEOUT;
 
     /**
+     * Agent kapcsolódáshoz alkalmazott timeout
+     *
+     * @var int
+     */
+    private $requestConnectTimeout = 0;
+
+    /**
      * Az aktuális Agent válasz
      *
      * @var SzamlaAgentResponse
@@ -162,6 +169,13 @@ class SzamlaAgent {
      * @var CookieHandler
      */
     private $cookieHandler;
+
+    /**
+     * Tanúsítvány
+     *
+     * @var string
+     */
+    private $certificationFilePath;
 
     /**
      * Számla Agent létrehozása
@@ -1194,5 +1208,52 @@ class SzamlaAgent {
      */
     protected function setCookieHandler($cookieHandler) {
         $this->cookieHandler = $cookieHandler;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCertificationFilePath() {
+        return $this->certificationFilePath;
+    }
+
+    /**
+     * @param string $certification
+     */
+    public function setCertificationFilePath($certificationFilePath) {
+        $this->certificationFilePath = $certificationFilePath;
+    }
+
+    /**
+     * Visszaadja, hogy lett-e beállítva külön certifikáció
+     * Ha a beállított fájl nem létezik kivételt dob
+     * @return bool
+     * @throws SzamlaAgentException
+     */
+    public function hasCertification() {
+        if (SzamlaAgentUtil::isNotBlank($this->getCertificationFilePath())) {
+            if (file_exists($this->getCertificationFilePath())) {
+                return true;
+            } else {
+                throw new SzamlaAgentException(SzamlaAgentException::MISSING_CERTIFICATION_FILE);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRequestConnectTimeout() {
+        return $this->requestConnectTimeout;
+    }
+
+    /**
+     * Negatív értéket nem vehet fel
+     * @param int $requestConnectTimeout
+     * @return void
+     */
+    public function setRequestConnectTimeout($requestConnectTimeout) {
+        $this->requestConnectTimeout = max($requestConnectTimeout, 0);
     }
 }

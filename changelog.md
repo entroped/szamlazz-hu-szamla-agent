@@ -2,6 +2,64 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2.10.21] - 2025.03.14
+
+### Added
+
+- added function: set curl connection timeout (CURLOPT_CONNECTTIMEOUT)
+  - src/szamlaagent/SzamlaAgent.php
+    - getRequestConnectTimeout - get curl connection timeout
+    - setRequestConnectTimeout - set curl connection timeout
+````
+    $agent = SzamlaAgentAPI::create('agentApiKey');
+    ...
+    $agent->setRequestConnectTimeout(10);
+````
+## [2.10.20] - 2024.11.20
+
+### Fixed
+
+- SzamlaAgentResponse getPdfFileName bugfix for preview mode
+  - src/szamlaagent/SzamlaAgentResponse.php 
+
+## [2.10.19] - 2024.10.16
+
+### Changed
+
+- no need fulfillment date for reverse invoice optional
+    - szamlaagent/src/szamlaagent/header/InvoiceHeader.php
+    - szamlaagent/src/szamlaagent/header/ReverseInvoiceHeader.php
+
+### Added
+
+- added function: set certification file
+  - src/szamlaagent/SzamlaAgent.php
+    - setCertificationFilePath - set certification file path
+    - getCertificationFilePath - get certification file path
+- hasCertification - returns whether a certificate file has been set, and checks whether the file exists 
+````
+    $agent = SzamlaAgentAPI::create('agentApiKey');
+    ...
+    $agent.setCertificationFilePath("C:\cert.pem");
+    ...
+    $agent.getCertificationFilePath();
+    ...
+    $agent.hasCertification();
+````
+- added function: set data deletion code count for items
+  - src/szamlaagent/item/Item.php
+    - getDataDeletionCode - get count of data deleteion code count
+- setDataDeletionCode - set count of data deleteion code count
+````
+    item.setDataDeletionCode(3);
+    ...
+    item.getDataDeletionCode();
+````
+### Removed
+
+  - src/docs directory
+
+
 ## [2.10.18] - 2024.04.18
 
 ### Removed
@@ -10,7 +68,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - removed functions: 'setCertificationPath' , 'getCertificationPath', 'getCertificationFile', 'getCertificationFileName'
     - szamlaagent/src/szamlaagent/item/SzamlaAgent.php
   - response header key check change (case insensitive handing)
-    - SzamlaAgentResponse.php, InvoiceResponse.php, ReceiptResponse.php 
+    - SzamlaAgentResponse.php, InvoiceResponse.php, ReceiptResponse.php
+
 ## [2.10.17] - 2023.06.14
 
 ### Added

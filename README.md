@@ -4,7 +4,7 @@ SzamlaAgent is an invoice manager API proviced by [https://szamlazz.hu](https://
 
 The latest version can be downloaded directly from: [https://docs.szamlazz.hu/#php-api](https://docs.szamlazz.hu/#php-api)
 
-Current applied version: **2.10.28**
+Current applied version: **2.10.21**
 
 This repository is using the original implementation uploaded to [packagist.org](https://packagist.org/) in order to use **SzamlazzAgent** with various PHP frameworks and applications.
 

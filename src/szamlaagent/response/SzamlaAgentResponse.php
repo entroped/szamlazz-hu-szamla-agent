@@ -109,6 +109,13 @@ class SzamlaAgentResponse {
      */
     private $xmlSchemaType;
 
+    /**
+     * Mentett PDF fálj neve
+     *
+     * @var string
+     */
+    private $previewFileName;
+
 
     /**
      * Számla Agent válasz létrehozása
@@ -273,25 +280,29 @@ class SzamlaAgentResponse {
     }
 
     /**
-     * Visszaadja a PDF fájl nevét
+     * Visszaadja a PDF fájl nevét, amennyiben a PDF file-ok mentése be van kapcsolva
      *
      * @param bool $withPath
      *
-     * @return bool|string
+     * @return string
      */
     public function getPdfFileName($withPath = true) {
         $header = $this->getAgent()->getRequestEntityHeader();
 
         if ($header instanceof InvoiceHeader && $header->isPreviewPdf()) {
-            $entity = $this->getAgent()->getRequestEntity();
 
-            $name = '';
-            if ($entity != null && $entity instanceof Invoice) {
-                try {
-                    $name .= (new \ReflectionClass($entity))->getShortName() . '-';
-                } catch (\ReflectionException $e) {}
+            if (SzamlaAgentUtil::isBlank($this->getPreviewFileName())) {
+                $entity = $this->getAgent()->getRequestEntity();
+                $name = '';
+                if ($entity != null && $entity instanceof Invoice) {
+                    try {
+                        $name .= (new \ReflectionClass($entity))->getShortName() . '-';
+                    } catch (\ReflectionException $e) {}
+                }
+                $this->setPreviewFileName(strtolower($name) . 'preview-' . SzamlaAgentUtil::getDateTimeWithMilliseconds());
             }
-            $documentNumber = strtolower($name) . 'preview-' . SzamlaAgentUtil::getDateTimeWithMilliseconds();
+
+            $documentNumber = $this->getPreviewFileName();
         } else {
             $documentNumber = $this->getDocumentNumber();
         }
@@ -301,7 +312,6 @@ class SzamlaAgentResponse {
         } else {
             return $documentNumber . '.pdf';
         }
-
     }
 
     /**
@@ -800,6 +810,14 @@ class SzamlaAgentResponse {
      */
     public function getCookieSessionId() {
         return $this->agent->getCookieSessionId();
+    }
+
+    public function getPreviewFileName() {
+        return $this->previewFileName;
+    }
+
+    public function setPreviewFileName(string $previewFileName) {
+        $this->previewFileName = $previewFileName;
     }
 
 }
